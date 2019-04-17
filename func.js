@@ -33,8 +33,42 @@ var getImage = (q) => {
 	});
 };
 
+var getDeck1 = (num) => {
+	return new Promise((resolve, reject) => {
+		request({
+	url: `https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=${num}`,
+	json: true
+}, (error, response, body) => {
+	if (body.deck_id != '' ) {
+		resolve(`${body.deck_id}`);
+	} else {
+		reject('Cannot find the card');
+	};
+
+}) 
+	});
+};
+
+var getDeck2 = (num, id) => {
+	return new Promise((resolve, reject) => {
+		request({
+	url: `https://deckofcardsapi.com/api/deck/${id}/draw/?count=${num}`,
+	json: true
+}, (error, response, body) => {
+	if (body.success != false ) {
+		resolve(`${body.cards[0].images.png}`);
+	} else {
+		reject('Cannot find the pic');
+	};
+
+}) 
+	});
+};
+
 
 module.exports = {
 	getCapital,
-	getImage
+	getImage,
+	getDeck1,
+	getDeck2
 }

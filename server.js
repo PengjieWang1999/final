@@ -50,6 +50,14 @@ app.get('/info', (request, response) => {
 	});
 });
 
+app.get('/deck', (request, response) => {
+	response.render('deck.hbs', {
+		title: 'Deck page',
+		/*year: new Date().getFullYear(),*/
+		welcome: 'Hello!'
+	});
+});
+
 app.get('/weather', (request, response) => {
 	response.render('weather.hbs', {
 		title: 'Search page',
@@ -85,6 +93,17 @@ app.post('/search_image', function (request, response) {
 
 hbs.registerHelper('getImage', () => {
 	geocode.getImage('apollo').then((result) => {
+		weather = result;
+	}).catch((error) => {
+		weather = error;
+	})
+	return weather;
+});
+
+hbs.registerHelper('getDeck', () => {
+	geocode.getDeck1(3).then((result) => {
+		return geocode.getDeck2(3, result);
+	}).then((result) => {
 		weather = result;
 	}).catch((error) => {
 		weather = error;
