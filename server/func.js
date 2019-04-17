@@ -33,7 +33,6 @@ var getImage = (q) => {
 	});
 };
 
-
 module.exports = {
 	getCapital,
 	getImage

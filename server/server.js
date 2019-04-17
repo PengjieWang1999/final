@@ -13,11 +13,6 @@ const geocode = require('./func');
 
 const path = require('path');
 
-app.use(bodyParser.json());
-	app.use(bodyParser.urlencoded({
-		extended:true
-  }));
-
 
 
 hbs.registerHelper('getCurrentYear', () => {
@@ -51,7 +46,7 @@ app.get('/info', (request, response) => {
 
 app.get('/weather', (request, response) => {
 	response.render('weather.hbs', {
-		title: 'Search page',
+		title: 'Weather page',
 		/*year: new Date().getFullYear(),*/
 		welcome: 'Hello!'
 	});
@@ -68,16 +63,18 @@ app.get('/search', (request, response) => {
 app.post('/search_image', function (request, response) {
 
     var keyword = request.body.keyword;
-    
+    var password = request.body.password;
+    var email = request.body.email;
+
     console.log(keyword);
 
     hbs.registerHelper('getImage', () => {
-		geocode.getImage(keyword).then((result) => {
-			weather = result;
-		}).catch((error) => {
-			weather = error;
-		})
-		return weather;
+	geocode.getImage(keyword).then((result) => {
+		weather = result;
+	}).catch((error) => {
+		weather = error;
+	})
+	return weather;
 });
 
 });
