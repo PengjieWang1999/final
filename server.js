@@ -66,6 +66,14 @@ app.get('/weather', (request, response) => {
 	});
 });
 
+app.get('/image', (request, response) => {
+	response.render('image.hbs', {
+		title: 'Image page',
+		/*year: new Date().getFullYear(),*/
+		welcome: 'Hello!'
+	});
+});
+
 app.get('/search', (request, response) => {
 	response.render('weather.hbs', {
 		title: 'Weather page',
@@ -100,10 +108,37 @@ hbs.registerHelper('getImage', () => {
 	return weather;
 });
 
+hbs.registerHelper('getImage1', () => {
+	geocode.getImage('space').then((result) => {
+		weather = result;
+	}).catch((error) => {
+		weather = error;
+	})
+	return weather;
+});
+
 hbs.registerHelper('getDeck', () => {
 	geocode.getDeck1(3).then((result) => {
 		return geocode.getDeck2(3, result);
 	}).then((result) => {
+		weather = result;
+	}).catch((error) => {
+		weather = error;
+	})
+	return weather;
+});
+
+hbs.registerHelper('getImage2', () => {
+	geocode.getImage2().then((result) => {
+		weather = result;
+	}).catch((error) => {
+		weather = error;
+	})
+	return weather;
+});
+
+hbs.registerHelper('getImage3', () => {
+	geocode.getImage3().then((result) => {
 		weather = result;
 	}).catch((error) => {
 		weather = error;

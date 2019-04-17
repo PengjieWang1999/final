@@ -33,6 +33,22 @@ var getImage = (q) => {
 	});
 };
 
+var getImage1 = (q) => {
+	return new Promise((resolve, reject) => {
+		request({
+	url: `https://images-api.nasa.gov/search?q=${q}&media_type=image`,
+	json: true
+}, (error, response, body) => {
+	if (body.collection.items != []) {
+		resolve(`${body.collection.items[1].links[0].href}`);
+	} else {
+		reject('Cannot find the weather');
+	};
+
+}) 
+	});
+};
+
 var getDeck1 = (num) => {
 	return new Promise((resolve, reject) => {
 		request({
@@ -65,10 +81,43 @@ var getDeck2 = (num, id) => {
 	});
 };
 
+var getImage2 = () => {
+	return new Promise((resolve, reject) => {
+		request({
+	url: `http://jsonplaceholder.typicode.com/photos`,
+	json: true
+}, (error, response, body) => {
+	if (body != {} ) {
+		resolve(body[0].url);
+	} else {
+		reject('Cannot find the pic');
+	};
 
+}) 
+	});
+};
+
+var getImage3 = () => {
+	return new Promise((resolve, reject) => {
+		request({
+	url: `http://jsonplaceholder.typicode.com/photos`,
+	json: true
+}, (error, response, body) => {
+	if (body != {} ) {
+		resolve(body[100].url);
+	} else {
+		reject('Cannot find the pic');
+	};
+
+}) 
+	});
+};
 module.exports = {
 	getCapital,
 	getImage,
 	getDeck1,
-	getDeck2
+	getDeck2,
+	getImage2,
+	getImage3,
+	getImage1
 }
